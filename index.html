@@ -34,9 +34,9 @@
 
       <nav class="nav nav--left" aria-label="Primary">
         <a href="#shop" data-filter-cat="all">Shop All</a>
-        <a href="#shop" data-filter-cat="Abaya">Abayas</a>
-        <a href="#shop" data-filter-cat="Kaftan">Kaftans</a>
-        <a href="#shop" data-filter-cat="Kimono">Kimonos</a>
+        <a href="#shop" data-filter-brand="Hijabia">Hijabia</a>
+        <a href="#shop" data-filter-brand="Hijabi MV">Hijabi MV</a>
+        <a href="#shop" data-filter-cat="Hijab">Hijabs</a>
       </nav>
 
       <a class="brand" href="#top" aria-label="Hijabia home">
@@ -67,9 +67,10 @@
     </div>
     <nav class="mobile-nav__links">
       <a href="#shop" data-filter-cat="all">Shop All</a>
+      <a href="#shop" data-filter-brand="Hijabia">Hijabia — Abayas & Kaftans</a>
+      <a href="#shop" data-filter-brand="Hijabi MV">Hijabi MV — Hijabs & Scarves</a>
+      <a href="#shop" data-filter-cat="Hijab">Hijabs</a>
       <a href="#shop" data-filter-cat="Abaya">Abayas</a>
-      <a href="#shop" data-filter-cat="Kaftan">Kaftans</a>
-      <a href="#shop" data-filter-cat="Kimono">Kimonos</a>
       <a href="#about">About</a>
     </nav>
     <p class="mobile-nav__note">Complimentary shipping over $99 · 30-day returns</p>
@@ -96,9 +97,9 @@
         <img id="heroImg" alt="" loading="eager" />
       </div>
       <div class="hero__panel">
-        <p class="eyebrow">Modest essentials, beautifully made</p>
+        <p class="eyebrow">Hijabia × Hijabi MV</p>
         <h1 class="hero__title">Drape with quiet confidence.</h1>
-        <p class="hero__sub">Beautifully cut abayas, kaftans and open layers in considered fabrics — designed to move with you from morning to evening.</p>
+        <p class="hero__sub">Two houses of modest fashion, one home — abayas and kaftans by Hijabia, everyday hijabs, scarves and shawls by Hijabi MV.</p>
         <div class="hero__cta">
           <a class="btn btn--solid" href="#shop">Shop the collection</a>
           <a class="btn btn--ghost" href="#categories">Explore by type</a>
@@ -111,38 +112,81 @@
       </div>
     </section>
 
-    <!-- Categories -->
+    <!-- Categories — two brands, one home -->
     <section class="section" id="categories">
       <div class="shell">
         <div class="section__head">
-          <h2 class="section__title">Shop by type</h2>
-          <p class="section__lead">Three ways to wear Hijabia — each cut and finished for everyday ease.</p>
+          <h2 class="section__title">Two houses, one home</h2>
+          <p class="section__lead">Hijabia for abayas, kaftans and open layers — Hijabi MV for everyday hijabs, scarves and shawls.</p>
         </div>
-        <div class="cat-grid" id="catGrid">
-          <button class="cat-card" data-filter-cat="Abaya">
-            <span class="cat-card__media"><img data-cat-img="banner-abaya" alt="" loading="lazy" /></span>
-            <span class="cat-card__body">
-              <span class="cat-card__name">Abayas</span>
-              <span class="cat-card__meta">Nidha · Crepe · Satin</span>
-              <span class="cat-card__link">Shop abayas →</span>
+
+        <div class="brand-block">
+          <div class="brand-block__head">
+            <img class="brand-block__logo" src="hijabia-logo.png" alt="Hijabia" />
+            <button class="btn btn--line brand-block__shop" type="button" data-filter-brand="Hijabia">Shop all Hijabia</button>
+          </div>
+          <div class="cat-grid">
+            <button class="cat-card" data-filter-cat="Abaya">
+              <span class="cat-card__media"><img data-cat-img="banner-abaya" alt="" loading="lazy" /></span>
+              <span class="cat-card__body">
+                <span class="cat-card__name">Abayas</span>
+                <span class="cat-card__meta">Nidha · Crepe · Satin</span>
+                <span class="cat-card__link">Shop abayas →</span>
+              </span>
+            </button>
+            <button class="cat-card" data-filter-cat="Kaftan">
+              <span class="cat-card__media"><img data-cat-img="banner-kaftan" alt="" loading="lazy" /></span>
+              <span class="cat-card__body">
+                <span class="cat-card__name">Kaftans</span>
+                <span class="cat-card__meta">Satin · Embroidered · Occasion</span>
+                <span class="cat-card__link">Shop kaftans →</span>
+              </span>
+            </button>
+            <button class="cat-card" data-filter-cat="Outerwear">
+              <span class="cat-card__media"><img data-cat-img="banner-outerwear" alt="" loading="lazy" /></span>
+              <span class="cat-card__body">
+                <span class="cat-card__name">Outerwear</span>
+                <span class="cat-card__meta">Dusters · Coats · Open</span>
+                <span class="cat-card__link">Shop outerwear →</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="brand-block">
+          <div class="brand-block__head">
+            <span class="brand-block__brand">
+              <img class="brand-block__mark" src="hijabimv-mark.png" alt="" aria-hidden="true" />
+              <span class="brand-block__word">Hijabi MV</span>
             </span>
-          </button>
-          <button class="cat-card" data-filter-cat="Kaftan">
-            <span class="cat-card__media"><img data-cat-img="banner-kaftan" alt="" loading="lazy" /></span>
-            <span class="cat-card__body">
-              <span class="cat-card__name">Kaftans</span>
-              <span class="cat-card__meta">Satin · Chiffon · Embroidered</span>
-              <span class="cat-card__link">Shop kaftans →</span>
-            </span>
-          </button>
-          <button class="cat-card" data-filter-cat="Kimono">
-            <span class="cat-card__media"><img data-cat-img="banner-kimono" alt="" loading="lazy" /></span>
-            <span class="cat-card__body">
-              <span class="cat-card__name">Kimonos</span>
-              <span class="cat-card__meta">Open · Satin · Lace</span>
-              <span class="cat-card__link">Shop kimonos →</span>
-            </span>
-          </button>
+            <button class="btn btn--line brand-block__shop" type="button" data-filter-brand="Hijabi MV">Shop all Hijabi MV</button>
+          </div>
+          <div class="cat-grid">
+            <button class="cat-card" data-filter-cat="Hijab">
+              <span class="cat-card__media"><img data-cat-img="banner-hijab" alt="" loading="lazy" /></span>
+              <span class="cat-card__body">
+                <span class="cat-card__name">Hijabs</span>
+                <span class="cat-card__meta">Jersey · Chiffon · Modal</span>
+                <span class="cat-card__link">Shop hijabs →</span>
+              </span>
+            </button>
+            <button class="cat-card" data-filter-cat="Scarf">
+              <span class="cat-card__media"><img data-cat-img="banner-scarf" alt="" loading="lazy" /></span>
+              <span class="cat-card__body">
+                <span class="cat-card__name">Scarves</span>
+                <span class="cat-card__meta">Silk · Printed · Twill</span>
+                <span class="cat-card__link">Shop scarves →</span>
+              </span>
+            </button>
+            <button class="cat-card" data-filter-cat="Shawl">
+              <span class="cat-card__media"><img data-cat-img="banner-shawl" alt="" loading="lazy" /></span>
+              <span class="cat-card__body">
+                <span class="cat-card__name">Shawls</span>
+                <span class="cat-card__meta">Pashmina · Knit · Wraps</span>
+                <span class="cat-card__link">Shop shawls →</span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -181,6 +225,11 @@
               <button class="icon-btn filters__close" id="closeFilters" aria-label="Close filters">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
               </button>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-group__title">Brand</h3>
+              <div class="check-list" id="filterBrand"></div>
             </div>
 
             <div class="filter-group">
@@ -258,8 +307,8 @@
         <div class="about__body">
           <p class="eyebrow">Our story</p>
           <h2 class="section__title">Modest dressing, made effortless.</h2>
-          <p>Hijabia began with a simple wish: abayas that feel as good as they look. We source premium fabrics, line and finish every piece with care, and choose colours that work together — so getting dressed is the easy part of your day.</p>
-          <p>From fluid everyday crepe to embellished occasion kaftans, each piece is designed to drape beautifully and move with you, all day long.</p>
+          <p>Two labels, one wardrobe. <strong>Hijabia</strong> began with a simple wish: abayas and kaftans that feel as good as they look. <strong>Hijabi MV</strong> brings the everyday essentials — soft hijabs, scarves and shawls in colours made to layer together.</p>
+          <p>From fluid everyday crepe to embellished occasion kaftans and the perfect-drape hijab, each piece is sourced in premium fabrics and finished with care — so getting dressed is the easy part of your day.</p>
           <div class="about__stats">
             <div><strong>40+</strong><span>Colourways</span></div>
             <div><strong>100%</strong><span>Fully lined</span></div>
@@ -289,15 +338,22 @@
   <footer class="footer">
     <div class="shell footer__grid">
       <div class="footer__brand">
-        <img class="brand__logo brand__logo--footer" src="hijabia-logo.png" alt="Hijabia" />
-        <p>Modest elegance in abayas, kaftans and open layers.</p>
+        <div class="footer__logos">
+          <img class="brand__logo brand__logo--footer" src="hijabia-logo.png" alt="Hijabia" />
+          <span class="footer__x" aria-hidden="true">×</span>
+          <span class="footer__mv">
+            <img class="footer__mvmark" src="hijabimv-mark.png" alt="" aria-hidden="true" />
+            <span class="footer__mvword">Hijabi MV</span>
+          </span>
+        </div>
+        <p>Two houses of modest fashion, one home — Hijabia abayas &amp; kaftans, Hijabi MV hijabs &amp; scarves.</p>
       </div>
       <div class="footer__col">
         <h4>Shop</h4>
+        <a href="#shop" data-filter-brand="Hijabia">Hijabia</a>
+        <a href="#shop" data-filter-brand="Hijabi MV">Hijabi MV</a>
         <a href="#shop" data-filter-cat="Abaya">Abayas</a>
-        <a href="#shop" data-filter-cat="Kaftan">Kaftans</a>
-        <a href="#shop" data-filter-cat="Kimono">Kimonos</a>
-        <a href="#shop" data-filter-cat="all">New in</a>
+        <a href="#shop" data-filter-cat="Hijab">Hijabs</a>
       </div>
       <div class="footer__col">
         <h4>Help</h4>
@@ -315,7 +371,7 @@
       </div>
     </div>
     <div class="shell footer__bottom">
-      <p>© <span id="year"></span> Hijabia. A demo storefront.</p>
+      <p>© <span id="year"></span> Hijabia &amp; Hijabi MV. A demo storefront.</p>
       <p class="footer__pay">Visa · Mastercard · Amex · Apple Pay</p>
     </div>
   </footer>
@@ -487,6 +543,7 @@
       <div class="card__media">
         <img class="card__img" alt="" loading="lazy" />
         <span class="card__badge"></span>
+        <span class="card__brand"></span>
         <button class="card__quick" type="button">Quick view</button>
       </div>
       <div class="card__body">

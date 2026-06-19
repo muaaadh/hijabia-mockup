@@ -86,15 +86,24 @@
   function fabricFamily(fabric) {
     const f = (fabric || "").toLowerCase();
     if (/lace|embroider|bead|sequin|embellish/.test(f)) return "Lace & Embellished";
-    if (/satin|silk|charmeuse/.test(f)) return "Satin & Silk";
+    if (/pashmina|cashmere|merino|wool|acrylic/.test(f)) return "Wool & Cashmere";
+    if (/knit/.test(f)) return "Knit";
+    if (/satin|silk|charmeuse|twill/.test(f)) return "Satin & Silk";
     if (/chiffon|georgette|organza/.test(f)) return "Chiffon & Georgette";
-    if (/linen|cotton/.test(f)) return "Linen & Cotton";
     if (/nidha|crepe|crêpe/.test(f)) return "Nidha & Crepe";
-    if (/jersey|knit|modal|viscose/.test(f)) return "Jersey & Knit";
+    if (/modal|viscose|bamboo/.test(f)) return "Modal & Viscose";
+    if (/linen/.test(f)) return "Linen";
+    if (/cotton|voile|gauze|jersey/.test(f)) return "Cotton & Jersey";
     return "Other";
   }
-  const FABRIC_ORDER = ["Nidha & Crepe", "Satin & Silk", "Chiffon & Georgette", "Linen & Cotton", "Lace & Embellished", "Jersey & Knit", "Other"];
-  const SIZE_ORDER = ["XS", "S", "M", "L", "XL", "XXL", "52\"", "54\"", "56\"", "58\"", "60\""];
+  const FABRIC_ORDER = ["Nidha & Crepe", "Satin & Silk", "Chiffon & Georgette", "Cotton & Jersey", "Modal & Viscose", "Linen", "Wool & Cashmere", "Lace & Embellished", "Knit", "Other"];
+  const SIZE_ORDER = ["XS", "S", "M", "L", "XL", "XXL", "52\"", "54\"", "56\"", "58\"", "60\"",
+    "One Size", "Standard (180x70cm)", "Maxi (200x75cm)", "Square (110x110cm)", "Square (90x90cm)", "Long (180x65cm)", "Classic (190x70cm)", "Oversized (200x100cm)", "Skinny (140x15cm)"];
+  // category enum + display labels (avoid naive +"s" — "Scarfs"/"Outerwears" are wrong)
+  const CATS = ["Abaya", "Kaftan", "Outerwear", "Hijab", "Scarf", "Shawl"];
+  const CAT_LABEL = { Abaya: "Abayas", Kaftan: "Kaftans", Outerwear: "Outerwear", Hijab: "Hijabs", Scarf: "Scarves", Shawl: "Shawls" };
+  const catLabel = (c) => CAT_LABEL[c] || c;
+  const BRANDS = ["Hijabia", "Hijabi MV"];
 
   // precompute facets on products
   PRODUCTS.forEach((p) => {
@@ -104,7 +113,7 @@
 
   /* ---------- state ---------- */
   const state = {
-    f: { categories: new Set(), colors: new Set(), sizes: new Set(), fabrics: new Set(), min: null, max: null, q: "" },
+    f: { brands: new Set(), categories: new Set(), colors: new Set(), sizes: new Set(), fabrics: new Set(), min: null, max: null, q: "" },
     sort: "featured",
     cart: load()
   };
@@ -145,15 +154,21 @@
      ============================================================ */
   function activeCount() {
     const f = state.f;
-    return f.categories.size + f.colors.size + f.sizes.size + f.fabrics.size + (f.min != null ? 1 : 0) + (f.max != null ? 1 : 0);
+    return f.brands.size + f.categories.size + f.colors.size + f.sizes.size + f.fabrics.size + (f.min != null ? 1 : 0) + (f.max != null ? 1 : 0);
   }
 
   function buildFilters() {
-    // category
-    const cats = ["Abaya", "Kaftan", "Kimono"];
-    $("#filterCategory").innerHTML = cats.map((c) => {
+    // brand
+    const brandEl = $("#filterBrand");
+    if (brandEl) brandEl.innerHTML = BRANDS.filter((b) => PRODUCTS.some((p) => p.brand === b)).map((b) => {
+      const n = PRODUCTS.filter((p) => p.brand === b).length;
+      return checkRow("brand", b, b, n);
+    }).join("");
+
+    // category (only those present)
+    $("#filterCategory").innerHTML = CATS.filter((c) => PRODUCTS.some((p) => p.category === c)).map((c) => {
       const n = PRODUCTS.filter((p) => p.category === c).length;
-      return checkRow("cat", c, c + "s", n);
+      return checkRow("cat", c, catLabel(c), n);
     }).join("");
 
     // colours present
@@ -187,6 +202,7 @@
   }
 
   function wireFilters() {
+    if ($("#filterBrand")) $("#filterBrand").addEventListener("change", onCheck);
     $("#filterCategory").addEventListener("change", onCheck);
     $("#filterFabric").addEventListener("change", onCheck);
     $("#filterColor").addEventListener("click", (e) => {
@@ -207,22 +223,24 @@
   }
   function onCheck(e) {
     const cb = e.target; if (cb.type !== "checkbox") return;
-    const set = cb.dataset.group === "cat" ? state.f.categories : state.f.fabrics;
+    const set = cb.dataset.group === "cat" ? state.f.categories
+      : cb.dataset.group === "brand" ? state.f.brands : state.f.fabrics;
     if (cb.checked) set.add(cb.value); else set.delete(cb.value);
     render();
   }
   function toggle(set, v) { set.has(v) ? set.delete(v) : set.add(v); }
 
   function clearAll() {
-    state.f.categories.clear(); state.f.colors.clear(); state.f.sizes.clear(); state.f.fabrics.clear();
+    state.f.brands.clear(); state.f.categories.clear(); state.f.colors.clear(); state.f.sizes.clear(); state.f.fabrics.clear();
     state.f.min = null; state.f.max = null; state.f.q = "";
     $("#priceMin").value = ""; $("#priceMax").value = "";
     syncFilterUI();
     render();
   }
   function syncFilterUI() {
-    $$("#filterCategory input, #filterFabric input").forEach((cb) => {
-      cb.checked = (cb.dataset.group === "cat" ? state.f.categories : state.f.fabrics).has(cb.value);
+    $$("#filterBrand input, #filterCategory input, #filterFabric input").forEach((cb) => {
+      const set = cb.dataset.group === "cat" ? state.f.categories : cb.dataset.group === "brand" ? state.f.brands : state.f.fabrics;
+      cb.checked = set.has(cb.value);
     });
     $$("#filterColor .swatch").forEach((b) => b.classList.toggle("is-active", state.f.colors.has(b.dataset.color)));
     $$("#filterSize .chip").forEach((b) => b.classList.toggle("is-active", state.f.sizes.has(b.dataset.size)));
@@ -235,6 +253,7 @@
     const f = state.f;
     const q = f.q.trim().toLowerCase();
     let list = PRODUCTS.filter((p) => {
+      if (f.brands.size && !f.brands.has(p.brand)) return false;
       if (f.categories.size && !f.categories.has(p.category)) return false;
       if (f.colors.size && !p._families.some((x) => f.colors.has(x))) return false;
       if (f.sizes.size && !p.sizes.some((x) => f.sizes.has(x))) return false;
@@ -283,6 +302,8 @@
     img.alt = p.alt;
     setMedia(img, p.image, 600, media, p.name, p.colors[0].hex);
     $(".card__badge", el).textContent = p.badge || "";
+    const brandEl = $(".card__brand", el);
+    if (brandEl) brandEl.textContent = p.brand || "";
     $(".card__cat", el).textContent = p.category;
     $(".card__name", el).textContent = p.name;
     $(".card__price", el).textContent = "$" + p.price;
@@ -310,7 +331,8 @@
     const wrap = $("#activeChips");
     const chips = [];
     const f = state.f;
-    f.categories.forEach((c) => chips.push(chip(c + "s", () => { f.categories.delete(c); render(); })));
+    f.brands.forEach((b) => chips.push(chip(b, () => { f.brands.delete(b); render(); })));
+    f.categories.forEach((c) => chips.push(chip(catLabel(c), () => { f.categories.delete(c); render(); })));
     f.colors.forEach((c) => chips.push(chip(c, () => { f.colors.delete(c); render(); })));
     f.sizes.forEach((s) => chips.push(chip(s, () => { f.sizes.delete(s); render(); })));
     f.fabrics.forEach((x) => chips.push(chip(x, () => { f.fabrics.delete(x); render(); })));
@@ -417,7 +439,7 @@
     media.classList.remove("is-fallback");
     const img = $("#qvImg"); img.alt = p.alt;
     setMedia(img, p.image, 800, media, p.name, p.colors[0].hex);
-    $("#qvCat").textContent = p.category;
+    $("#qvCat").textContent = (p.brand ? p.brand + " · " : "") + p.category;
     $("#qvName").textContent = p.name;
     $("#qvPrice").textContent = "$" + p.price;
     $("#qvDesc").textContent = p.description;
@@ -706,21 +728,27 @@
   /* ============================================================
      Category nav / scroll
      ============================================================ */
-  function applyCategory(cat) {
-    state.f.categories.clear();
-    if (cat && cat !== "all") state.f.categories.add(cat);
-    syncFilterUI();
-    render();
+  function goShop() {
+    syncFilterUI(); render();
     const shop = $("#shop");
     if (shop) shop.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+  function applyCategory(cat) {
+    state.f.categories.clear(); state.f.brands.clear();
+    if (cat && cat !== "all") state.f.categories.add(cat);
+    goShop();
+  }
+  function applyBrand(brand) {
+    state.f.brands.clear(); state.f.categories.clear();
+    if (brand && brand !== "all") state.f.brands.add(brand);
+    goShop();
+  }
   function wireCategoryLinks() {
     document.addEventListener("click", (e) => {
-      const t = e.target.closest("[data-filter-cat]");
-      if (!t) return;
-      e.preventDefault();
-      applyCategory(t.dataset.filterCat);
-      closeMobileNav();
+      const tb = e.target.closest("[data-filter-brand]");
+      const tc = e.target.closest("[data-filter-cat]");
+      if (tb) { e.preventDefault(); applyBrand(tb.dataset.filterBrand); closeMobileNav(); }
+      else if (tc) { e.preventDefault(); applyCategory(tc.dataset.filterCat); closeMobileNav(); }
     });
   }
 

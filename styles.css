@@ -655,3 +655,36 @@ h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 600; line-height: 1
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
+
+/* ============================================================
+   Two-brand additions (Hijabia × Hijabi MV)
+   ============================================================ */
+.card__brand {
+  position: absolute; top: .7rem; right: .7rem; background: rgba(255,255,255,.92); color: var(--ink);
+  font-family: var(--font-head); font-weight: 600; font-size: .6rem; letter-spacing: .09em; text-transform: uppercase;
+  padding: .28rem .55rem; border-radius: 999px; backdrop-filter: blur(4px); box-shadow: var(--shadow-sm);
+}
+.card__brand:empty { display: none; }
+
+.brand-block + .brand-block { margin-top: clamp(30px, 4.5vw, 56px); }
+.brand-block__head {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  padding-bottom: 1rem; margin-bottom: 1.4rem; border-bottom: 1px solid var(--line);
+}
+.brand-block__logo { height: 30px; width: auto; display: block; }
+.brand-block__brand { display: inline-flex; align-items: center; gap: .65rem; }
+.brand-block__mark { height: 46px; width: auto; display: block; }
+.brand-block__word { font-family: var(--font-head); font-weight: 700; font-size: 1.3rem; letter-spacing: -.01em; color: var(--ink); }
+.brand-block__shop { min-height: 42px; }
+
+.footer__logos { display: flex; align-items: center; gap: 1rem; margin-bottom: .5rem; flex-wrap: wrap; }
+.footer__x { color: var(--gold); font-size: 1.1rem; opacity: .85; }
+.footer__mv { display: inline-flex; align-items: center; gap: .5rem; }
+.footer__mvmark { height: 40px; width: auto; }
+.footer__mvword { font-family: var(--font-head); font-weight: 700; font-size: 1.02rem; color: #fff; }
+
+@media (max-width: 680px) {
+  .brand-block__mark { height: 40px; }
+  .brand-block__word { font-size: 1.12rem; }
+  .card__brand { font-size: .56rem; padding: .24rem .48rem; }
+}
