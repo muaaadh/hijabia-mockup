@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6d4459" />
+  <title>Hijabia — Abayas, Kaftans & Modest Wear</title>
+  <meta name="description" content="Hijabia — thoughtfully made abayas, kaftans and open layers. Premium fabrics, elegant cuts, effortless drape. Free shipping over $99." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23221b18'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23ecb167' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Announcement -->
+  <div class="announce" id="announce">
+    <div class="announce__track">
+      <span>Complimentary shipping over $99</span><span aria-hidden="true">·</span>
+      <span>30-day easy returns</span><span aria-hidden="true">·</span>
+      <span>New season abayas just landed</span><span aria-hidden="true">·</span>
+      <span>Complimentary shipping over $99</span><span aria-hidden="true">·</span>
+      <span>30-day easy returns</span><span aria-hidden="true">·</span>
+      <span>New season abayas just landed</span><span aria-hidden="true">·</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__inner shell">
+      <button class="icon-btn header__menu" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+
+      <nav class="nav nav--left" aria-label="Primary">
+        <a href="#shop" data-filter-cat="all">Shop All</a>
+        <a href="#shop" data-filter-cat="Abaya">Abayas</a>
+        <a href="#shop" data-filter-cat="Kaftan">Kaftans</a>
+        <a href="#shop" data-filter-cat="Kimono">Kimonos</a>
+      </nav>
+
+      <a class="brand" href="#top" aria-label="Hijabia home">
+        <img class="brand__logo" src="hijabia-logo.png" alt="Hijabia" width="697" height="253" />
+      </a>
+
+      <div class="header__actions">
+        <a class="nav nav--right" href="#about">About</a>
+        <button class="icon-btn" id="searchBtn" aria-label="Search products">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" id="cartBtn" aria-label="Open cart">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span class="cart-count" id="cartCount" data-count="0">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile nav drawer -->
+  <div class="drawer-overlay" id="overlay" hidden></div>
+  <aside class="mobile-nav" id="mobileNav" aria-label="Mobile menu" aria-hidden="true">
+    <div class="mobile-nav__head">
+      <img class="brand__logo brand__logo--sm" src="hijabia-logo.png" alt="Hijabia" />
+      <button class="icon-btn" id="menuClose" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav__links">
+      <a href="#shop" data-filter-cat="all">Shop All</a>
+      <a href="#shop" data-filter-cat="Abaya">Abayas</a>
+      <a href="#shop" data-filter-cat="Kaftan">Kaftans</a>
+      <a href="#shop" data-filter-cat="Kimono">Kimonos</a>
+      <a href="#about">About</a>
+    </nav>
+    <p class="mobile-nav__note">Complimentary shipping over $99 · 30-day returns</p>
+  </aside>
+
+  <!-- Search overlay -->
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay__box">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="search" id="searchInput" placeholder="Search abayas, kaftans, kimonos…" aria-label="Search" autocomplete="off" />
+        <button class="icon-btn" id="searchClose" aria-label="Close search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <p class="search-field__hint">Press Enter to jump to results</p>
+    </div>
+  </div>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__media">
+        <img id="heroImg" alt="" loading="eager" />
+      </div>
+      <div class="hero__panel">
+        <p class="eyebrow">Modest essentials, beautifully made</p>
+        <h1 class="hero__title">Drape with quiet confidence.</h1>
+        <p class="hero__sub">Beautifully cut abayas, kaftans and open layers in considered fabrics — designed to move with you from morning to evening.</p>
+        <div class="hero__cta">
+          <a class="btn btn--solid" href="#shop">Shop the collection</a>
+          <a class="btn btn--ghost" href="#categories">Explore by type</a>
+        </div>
+        <ul class="hero__points">
+          <li>Premium fabrics</li>
+          <li>Fully lined</li>
+          <li>Everyday to occasion</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section" id="categories">
+      <div class="shell">
+        <div class="section__head">
+          <h2 class="section__title">Shop by type</h2>
+          <p class="section__lead">Three ways to wear Hijabia — each cut and finished for everyday ease.</p>
+        </div>
+        <div class="cat-grid" id="catGrid">
+          <button class="cat-card" data-filter-cat="Abaya">
+            <span class="cat-card__media"><img data-cat-img="banner-abaya" alt="" loading="lazy" /></span>
+            <span class="cat-card__body">
+              <span class="cat-card__name">Abayas</span>
+              <span class="cat-card__meta">Nidha · Crepe · Satin</span>
+              <span class="cat-card__link">Shop abayas →</span>
+            </span>
+          </button>
+          <button class="cat-card" data-filter-cat="Kaftan">
+            <span class="cat-card__media"><img data-cat-img="banner-kaftan" alt="" loading="lazy" /></span>
+            <span class="cat-card__body">
+              <span class="cat-card__name">Kaftans</span>
+              <span class="cat-card__meta">Satin · Chiffon · Embroidered</span>
+              <span class="cat-card__link">Shop kaftans →</span>
+            </span>
+          </button>
+          <button class="cat-card" data-filter-cat="Kimono">
+            <span class="cat-card__media"><img data-cat-img="banner-kimono" alt="" loading="lazy" /></span>
+            <span class="cat-card__body">
+              <span class="cat-card__name">Kimonos</span>
+              <span class="cat-card__meta">Open · Satin · Lace</span>
+              <span class="cat-card__link">Shop kimonos →</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shop -->
+    <section class="section section--shop" id="shop">
+      <div class="shell">
+        <div class="section__head">
+          <h2 class="section__title">The collection</h2>
+          <p class="section__lead">Filter by type, size and colour to find your match.</p>
+        </div>
+
+        <div class="shop-toolbar">
+          <button class="btn btn--line shop-toolbar__filters" id="openFilters">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+            Filters <span class="filter-pill" id="filterPill" hidden>0</span>
+          </button>
+          <p class="shop-toolbar__count" id="resultCount">Loading…</p>
+          <label class="sort">
+            <span>Sort</span>
+            <select id="sortSelect" aria-label="Sort products">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="name-asc">Name: A–Z</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="shop-layout">
+          <!-- Filters -->
+          <aside class="filters" id="filters" aria-label="Product filters">
+            <div class="filters__head">
+              <span>Filters</span>
+              <button class="link-btn" id="clearFilters" type="button">Clear all</button>
+              <button class="icon-btn filters__close" id="closeFilters" aria-label="Close filters">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              </button>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-group__title">Type</h3>
+              <div class="check-list" id="filterCategory"></div>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-group__title">Colour</h3>
+              <div class="swatch-list" id="filterColor"></div>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-group__title">Size</h3>
+              <div class="chip-list" id="filterSize"></div>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-group__title">Fabric</h3>
+              <div class="check-list" id="filterFabric"></div>
+            </div>
+
+            <div class="filter-group">
+              <h3 class="filter-group__title">Price</h3>
+              <div class="price-row">
+                <label class="price-input"><span>Min</span><input type="number" id="priceMin" min="0" inputmode="numeric" placeholder="$0" /></label>
+                <label class="price-input"><span>Max</span><input type="number" id="priceMax" min="0" inputmode="numeric" placeholder="$100" /></label>
+              </div>
+            </div>
+
+            <button class="btn btn--solid filters__apply" id="applyFilters" type="button">Show results</button>
+          </aside>
+
+          <!-- Grid -->
+          <div class="shop-main">
+            <div class="active-chips" id="activeChips" hidden></div>
+            <div class="product-grid" id="productGrid" aria-live="polite"></div>
+            <div class="empty-state" id="emptyState" hidden>
+              <p>No pieces match these filters.</p>
+              <button class="btn btn--line" id="emptyClear" type="button">Clear filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <div class="shell features__grid">
+        <div class="feature">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h13v8H3zM16 10h3l2 2v3h-5z"/><circle cx="7" cy="17" r="2"/><circle cx="18" cy="17" r="2"/></svg>
+          <h3>Free shipping</h3><p>On every order over $99, everywhere.</p>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+          <h3>30-day returns</h3><p>Changed your mind? Send it back, simply.</p>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          <h3>Secure checkout</h3><p>Encrypted payments you can trust.</p>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5"/><path d="M5 8v8l7 5 7-5V8"/></svg>
+          <h3>Considered fabrics</h3><p>Breathable, soft, made to last.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about" id="about">
+      <div class="shell about__grid">
+        <div class="about__media">
+          <img id="aboutImg" alt="" loading="lazy" />
+        </div>
+        <div class="about__body">
+          <p class="eyebrow">Our story</p>
+          <h2 class="section__title">Modest dressing, made effortless.</h2>
+          <p>Hijabia began with a simple wish: abayas that feel as good as they look. We source premium fabrics, line and finish every piece with care, and choose colours that work together — so getting dressed is the easy part of your day.</p>
+          <p>From fluid everyday crepe to embellished occasion kaftans, each piece is designed to drape beautifully and move with you, all day long.</p>
+          <div class="about__stats">
+            <div><strong>40+</strong><span>Colourways</span></div>
+            <div><strong>100%</strong><span>Fully lined</span></div>
+            <div><strong>12k+</strong><span>Happy wearers</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+      <div class="shell newsletter__inner">
+        <div>
+          <h2 class="section__title">Join the Hijabia list</h2>
+          <p>Early access to new colours, styling notes and members-only offers.</p>
+        </div>
+        <form class="newsletter__form" id="newsletterForm" novalidate>
+          <label class="sr-only" for="newsletterEmail">Email address</label>
+          <input type="email" id="newsletterEmail" placeholder="you@example.com" required />
+          <button class="btn btn--solid" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="shell footer__grid">
+      <div class="footer__brand">
+        <img class="brand__logo brand__logo--footer" src="hijabia-logo.png" alt="Hijabia" />
+        <p>Modest elegance in abayas, kaftans and open layers.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="#shop" data-filter-cat="Abaya">Abayas</a>
+        <a href="#shop" data-filter-cat="Kaftan">Kaftans</a>
+        <a href="#shop" data-filter-cat="Kimono">Kimonos</a>
+        <a href="#shop" data-filter-cat="all">New in</a>
+      </div>
+      <div class="footer__col">
+        <h4>Help</h4>
+        <a href="#">Shipping & returns</a>
+        <a href="#">Size guide</a>
+        <a href="#">Fabric care</a>
+        <a href="#">Contact us</a>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <a href="#about">About</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Stockists</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+    <div class="shell footer__bottom">
+      <p>© <span id="year"></span> Hijabia. A demo storefront.</p>
+      <p class="footer__pay">Visa · Mastercard · Amex · Apple Pay</p>
+    </div>
+  </footer>
+
+  <!-- Cart drawer -->
+  <aside class="cart" id="cart" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart__head">
+      <h2>Your bag <span id="cartItemsLabel" class="muted"></span></h2>
+      <button class="icon-btn" id="cartClose" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="cart__free" id="cartFree"></div>
+    <div class="cart__body" id="cartBody"></div>
+    <div class="cart__empty" id="cartEmpty">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      <p>Your bag is empty.</p>
+      <button class="btn btn--solid" id="cartShop" type="button">Start shopping</button>
+    </div>
+    <div class="cart__foot" id="cartFoot">
+      <div class="cart__row"><span>Subtotal</span><span id="cartSubtotal">$0</span></div>
+      <p class="cart__note">Shipping & taxes calculated at checkout.</p>
+      <button class="btn btn--solid btn--block" id="checkoutBtn" type="button">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Quick view -->
+  <div class="modal" id="quickView" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Product details">
+    <div class="modal__card quickview">
+      <button class="icon-btn modal__close" id="qvClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="quickview__media"><img id="qvImg" alt="" /></div>
+      <div class="quickview__body">
+        <p class="qv-cat" id="qvCat"></p>
+        <h3 id="qvName"></h3>
+        <p class="qv-price" id="qvPrice"></p>
+        <p class="qv-desc" id="qvDesc"></p>
+        <div class="qv-field">
+          <span class="qv-field__label">Colour: <strong id="qvColorName"></strong></span>
+          <div class="swatch-list" id="qvColors"></div>
+        </div>
+        <div class="qv-field">
+          <span class="qv-field__label">Size</span>
+          <div class="chip-list" id="qvSizes"></div>
+        </div>
+        <div class="qv-actions">
+          <div class="qty" role="group" aria-label="Quantity">
+            <button class="qty__btn" id="qvMinus" aria-label="Decrease quantity">−</button>
+            <span class="qty__val" id="qvQty">1</span>
+            <button class="qty__btn" id="qvPlus" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn btn--solid btn--block" id="qvAdd" type="button">Add to bag</button>
+        </div>
+        <ul class="qv-meta" id="qvMeta"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout -->
+  <div class="checkout" id="checkout" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Checkout">
+    <div class="checkout__bar shell">
+      <span class="brand"><img class="brand__logo" src="hijabia-logo.png" alt="Hijabia" /></span>
+      <ol class="steps" id="steps">
+        <li data-step="1" class="is-active"><span>1</span>Information</li>
+        <li data-step="2"><span>2</span>Shipping</li>
+        <li data-step="3"><span>3</span>Payment</li>
+      </ol>
+      <button class="icon-btn" id="checkoutClose" aria-label="Close checkout">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="checkout__inner shell">
+      <div class="checkout__form">
+        <!-- Step 1: Information -->
+        <form class="cstep is-active" data-step="1" id="formInfo" novalidate>
+          <h3 class="cstep__title">Contact</h3>
+          <div class="field"><label for="ckEmail">Email</label><input id="ckEmail" type="email" autocomplete="email" required /><small class="err"></small></div>
+          <h3 class="cstep__title">Shipping address</h3>
+          <div class="field-row">
+            <div class="field"><label for="ckFirst">First name</label><input id="ckFirst" autocomplete="given-name" required /><small class="err"></small></div>
+            <div class="field"><label for="ckLast">Last name</label><input id="ckLast" autocomplete="family-name" required /><small class="err"></small></div>
+          </div>
+          <div class="field"><label for="ckAddr">Address</label><input id="ckAddr" autocomplete="address-line1" required /><small class="err"></small></div>
+          <div class="field"><label for="ckApt">Apartment, suite, etc. <span class="muted">(optional)</span></label><input id="ckApt" autocomplete="address-line2" /></div>
+          <div class="field-row">
+            <div class="field"><label for="ckCity">City</label><input id="ckCity" autocomplete="address-level2" required /><small class="err"></small></div>
+            <div class="field"><label for="ckZip">Postal code</label><input id="ckZip" autocomplete="postal-code" required /><small class="err"></small></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="ckCountry">Country / region</label>
+              <select id="ckCountry" required>
+                <option value="">Select…</option>
+                <option>United States</option><option>United Kingdom</option><option>Canada</option>
+                <option>Australia</option><option>United Arab Emirates</option><option>Maldives</option>
+                <option>Saudi Arabia</option><option>Malaysia</option><option>Singapore</option><option>Other</option>
+              </select><small class="err"></small></div>
+            <div class="field"><label for="ckPhone">Phone</label><input id="ckPhone" type="tel" autocomplete="tel" required /><small class="err"></small></div>
+          </div>
+          <div class="cstep__nav">
+            <button class="link-btn" type="button" id="backToCart">← Return to bag</button>
+            <button class="btn btn--solid" type="submit">Continue to shipping</button>
+          </div>
+        </form>
+
+        <!-- Step 2: Shipping -->
+        <form class="cstep" data-step="2" id="formShip" novalidate>
+          <h3 class="cstep__title">Delivery method</h3>
+          <div class="ship-options" id="shipOptions">
+            <label class="ship-opt"><input type="radio" name="ship" value="standard" data-price="0" checked /><span class="ship-opt__main"><strong>Standard</strong><small>4–6 business days</small></span><span class="ship-opt__price">Free</span></label>
+            <label class="ship-opt"><input type="radio" name="ship" value="express" data-price="9" /><span class="ship-opt__main"><strong>Express</strong><small>2–3 business days</small></span><span class="ship-opt__price">$9</span></label>
+            <label class="ship-opt"><input type="radio" name="ship" value="priority" data-price="16" /><span class="ship-opt__main"><strong>Priority</strong><small>1–2 business days</small></span><span class="ship-opt__price">$16</span></label>
+          </div>
+          <div class="cstep__nav">
+            <button class="link-btn" type="button" data-goto="1">← Information</button>
+            <button class="btn btn--solid" type="submit">Continue to payment</button>
+          </div>
+        </form>
+
+        <!-- Step 3: Payment -->
+        <form class="cstep" data-step="3" id="formPay" novalidate>
+          <h3 class="cstep__title">Payment</h3>
+          <p class="pay-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11V8a6 6 0 0 1 12 0v3"/><rect x="4" y="11" width="16" height="9" rx="2"/></svg> All transactions are secure and encrypted. <em>This is a demo — no real charge.</em></p>
+          <div class="field"><label for="ckCard">Card number</label><input id="ckCard" inputmode="numeric" placeholder="1234 5678 9012 3456" autocomplete="cc-number" required /><small class="err"></small></div>
+          <div class="field-row">
+            <div class="field"><label for="ckExp">Expiry (MM/YY)</label><input id="ckExp" inputmode="numeric" placeholder="MM/YY" autocomplete="cc-exp" required /><small class="err"></small></div>
+            <div class="field"><label for="ckCvc">CVC</label><input id="ckCvc" inputmode="numeric" placeholder="123" autocomplete="cc-csc" required /><small class="err"></small></div>
+          </div>
+          <div class="field"><label for="ckName">Name on card</label><input id="ckName" autocomplete="cc-name" required /><small class="err"></small></div>
+          <div class="cstep__nav">
+            <button class="link-btn" type="button" data-goto="2">← Shipping</button>
+            <button class="btn btn--solid" type="submit" id="payBtn">Pay now</button>
+          </div>
+        </form>
+
+        <!-- Confirmation -->
+        <div class="cstep cstep--done" data-step="4" id="confirmStep">
+          <div class="confirm">
+            <div class="confirm__tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></div>
+            <h3>Thank you, <span id="confName">friend</span>!</h3>
+            <p>Your order <strong id="confOrder">#HJB-0000</strong> is confirmed. A receipt is on its way to <span id="confEmail">your inbox</span>.</p>
+            <div class="confirm__summary" id="confSummary"></div>
+            <button class="btn btn--solid" id="confDone" type="button">Continue shopping</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order summary -->
+      <aside class="checkout__summary" id="checkoutSummary">
+        <h3 class="checkout__summary-title">Order summary</h3>
+        <div class="osum__items" id="osumItems"></div>
+        <div class="osum__totals">
+          <div class="cart__row"><span>Subtotal</span><span id="osumSubtotal">$0</span></div>
+          <div class="cart__row"><span>Shipping</span><span id="osumShip">Free</span></div>
+          <div class="cart__row"><span>Tax (est.)</span><span id="osumTax">$0</span></div>
+          <div class="cart__row cart__row--total"><span>Total</span><span id="osumTotal">$0</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+  <!-- Product card template -->
+  <template id="cardTpl">
+    <article class="card">
+      <div class="card__media">
+        <img class="card__img" alt="" loading="lazy" />
+        <span class="card__badge"></span>
+        <button class="card__quick" type="button">Quick view</button>
+      </div>
+      <div class="card__body">
+        <p class="card__cat"></p>
+        <h3 class="card__name"></h3>
+        <div class="card__swatches"></div>
+        <div class="card__foot">
+          <span class="card__price"></span>
+          <button class="card__add" type="button" aria-label="Add to bag">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
