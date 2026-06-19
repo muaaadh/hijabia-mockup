@@ -158,13 +158,6 @@
   }
 
   function buildFilters() {
-    // brand
-    const brandEl = $("#filterBrand");
-    if (brandEl) brandEl.innerHTML = BRANDS.filter((b) => PRODUCTS.some((p) => p.brand === b)).map((b) => {
-      const n = PRODUCTS.filter((p) => p.brand === b).length;
-      return checkRow("brand", b, b, n);
-    }).join("");
-
     // category (only those present)
     $("#filterCategory").innerHTML = CATS.filter((c) => PRODUCTS.some((p) => p.category === c)).map((c) => {
       const n = PRODUCTS.filter((p) => p.category === c).length;
@@ -302,8 +295,6 @@
     img.alt = p.alt;
     setMedia(img, p.image, 600, media, p.name, p.colors[0].hex);
     $(".card__badge", el).textContent = p.badge || "";
-    const brandEl = $(".card__brand", el);
-    if (brandEl) brandEl.textContent = p.brand || "";
     $(".card__cat", el).textContent = p.category;
     $(".card__name", el).textContent = p.name;
     $(".card__price", el).textContent = "$" + p.price;
@@ -439,7 +430,7 @@
     media.classList.remove("is-fallback");
     const img = $("#qvImg"); img.alt = p.alt;
     setMedia(img, p.image, 800, media, p.name, p.colors[0].hex);
-    $("#qvCat").textContent = (p.brand ? p.brand + " · " : "") + p.category;
+    $("#qvCat").textContent = p.category;
     $("#qvName").textContent = p.name;
     $("#qvPrice").textContent = "$" + p.price;
     $("#qvDesc").textContent = p.description;
@@ -705,7 +696,14 @@
       <div class="cart__row"><span>Shipping</span><span>${t.ship === 0 ? "Free" : money(t.ship)}</span></div>
       <div class="cart__row"><span>Tax</span><span>${money(t.tax)}</span></div>
       <div class="cart__row cart__row--total"><span>Total paid</span><span>${money(t.total)}</span></div>`;
-    // clear cart
+    // record the order for the admin backend, then clear cart
+    const last = $("#ckLast").value.trim();
+    const orderItems = state.cart.map((l) => {
+      const p = findProduct(l.id);
+      return p ? { name: p.name, brand: p.brand, color: l.color, size: l.size, qty: l.qty, price: p.price } : null;
+    }).filter(Boolean);
+    saveOrder({ num: order, date: todayStr(), name: (first + " " + last).trim() || "Guest",
+      email: $("#ckEmail").value.trim() || "—", ship: checkout.ship || 0, status: "Paid", items: orderItems });
     state.cart = []; save(); renderCart();
     gotoStep(4);
     // mark all steps done
@@ -755,6 +753,76 @@
   /* ============================================================
      Init
      ============================================================ */
+  /* ============================================================
+     Admin (mock backend) — orders dashboard
+     ============================================================ */
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function todayStr() { const d = new Date(); return MONTHS[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear(); }
+  const SEED_ORDERS = [
+    { num: "#HJB-4821", date: "Jun 17, 2026", name: "Aisha Rahman", email: "aisha.r@example.com", ship: 0, status: "Paid",
+      items: [{ name: "Crystal Trim Statement Abaya", brand: "Hijabia", color: "Midnight Black", size: "56\"", qty: 1, price: 145 },
+              { name: "Signature Crinkle Hijab Bundle", brand: "Hijabi MV", color: "Berry Wine", size: "Maxi (200x75cm)", qty: 1, price: 29 }] },
+    { num: "#HJB-4807", date: "Jun 16, 2026", name: "Mariam Yusuf", email: "mariam.y@example.com", ship: 0, status: "Fulfilled",
+      items: [{ name: "Marigold Embellished Kaftan", brand: "Hijabia", color: "Marigold", size: "M", qty: 1, price: 119 }] },
+    { num: "#HJB-4795", date: "Jun 15, 2026", name: "Layla Hassan", email: "layla.h@example.com", ship: 7, status: "Processing",
+      items: [{ name: "Rainbow Gauze Scarf Rack", brand: "Hijabi MV", color: "Marigold", size: "Long (180x65cm)", qty: 2, price: 21 },
+              { name: "Folded Linen-Touch Shawl", brand: "Hijabi MV", color: "Powder Blue", size: "Maxi (200x75cm)", qty: 1, price: 26 }] },
+    { num: "#HJB-4783", date: "Jun 14, 2026", name: "Noor Abdullah", email: "noor.a@example.com", ship: 0, status: "Fulfilled",
+      items: [{ name: "Belted Camel Wrap Coat", brand: "Hijabia", color: "Camel", size: "L", qty: 1, price: 126 },
+              { name: "Silver Mist Pashmina", brand: "Hijabi MV", color: "Silver Mist", size: "Maxi (200x75cm)", qty: 1, price: 58 }] },
+    { num: "#HJB-4768", date: "Jun 13, 2026", name: "Sumaya Idris", email: "sumaya.i@example.com", ship: 0, status: "Paid",
+      items: [{ name: "Ivory Goldline Belted Kaftan", brand: "Hijabia", color: "Ivory", size: "M", qty: 1, price: 149 }] },
+  ];
+  function readOrders() {
+    let saved = [];
+    try { saved = JSON.parse(localStorage.getItem("hijabia_orders")) || []; } catch (e) { saved = []; }
+    return Array.isArray(saved) ? saved : [];
+  }
+  function saveOrder(o) {
+    const saved = readOrders();
+    saved.unshift(o);
+    try { localStorage.setItem("hijabia_orders", JSON.stringify(saved.slice(0, 50))); } catch (e) {}
+  }
+  function getOrders() { return readOrders().concat(SEED_ORDERS); }
+  function orderTotals(o) {
+    const sub = o.items.reduce((s, it) => s + it.price * it.qty, 0);
+    const tax = Math.round(sub * TAX_RATE * 100) / 100;
+    return { sub, ship: o.ship || 0, tax, total: sub + (o.ship || 0) + tax, count: o.items.reduce((n, it) => n + it.qty, 0) };
+  }
+  function renderAdmin() {
+    const orders = getOrders();
+    let revenue = 0, items = 0;
+    orders.forEach((o) => { const t = orderTotals(o); revenue += t.total; items += t.count; });
+    const stats = [
+      { label: "Total orders", value: orders.length },
+      { label: "Revenue", value: money(revenue) },
+      { label: "Items sold", value: items },
+      { label: "Products live", value: PRODUCTS.length },
+    ];
+    $("#adminStats").innerHTML = stats.map((s) =>
+      `<div class="stat"><div class="stat__label">${s.label}</div><div class="stat__value">${s.value}</div></div>`).join("");
+    $("#adminOrders").innerHTML = orders.map((o) => {
+      const t = orderTotals(o);
+      const its = o.items.map((it) =>
+        `<li><span class="ord__brand ord__brand--${it.brand === "Hijabi MV" ? "mv" : "hijabia"}">${it.brand}</span>` +
+        `<span class="ord__iname">${it.name} · ${it.color} · ${it.size} × ${it.qty}</span><b>${money(it.price * it.qty)}</b></li>`).join("");
+      return `<article class="ord">
+        <div class="ord__head"><span class="ord__num">${o.num}</span><span class="ord__status ord__status--${o.status.toLowerCase()}">${o.status}</span><span class="ord__date">${o.date}</span></div>
+        <div class="ord__cust">${o.name} · ${o.email}</div>
+        <ul class="ord__items">${its}</ul>
+        <div class="ord__foot"><span>${t.count} item${t.count > 1 ? "s" : ""} · ${o.ship ? money(o.ship) + " ship" : "Free ship"}</span><span class="ord__total">Total<b>${money(t.total)}</b></span></div>
+      </article>`;
+    }).join("");
+  }
+  function setView(v) {
+    const admin = v === "admin";
+    $("#storeView").hidden = admin;
+    $("#adminView").hidden = !admin;
+    $$(".seg__btn").forEach((b) => b.classList.toggle("is-active", b.dataset.view === v));
+    if (admin) renderAdmin();
+    window.scrollTo(0, 0);
+  }
+
   function setHeroAndBanners() {
     if (MEDIA.hero) { const i = $("#heroImg"); i.alt = MEDIA.hero.alt; setMedia(i, MEDIA.hero.image, 1100, i.parentElement, "Hijabia", "#6d4459"); }
     if (MEDIA.about) { const i = $("#aboutImg"); i.alt = MEDIA.about.alt; setMedia(i, MEDIA.about.image, 900, i.parentElement, "", "#6d4459"); }
@@ -765,6 +833,7 @@
   }
 
   function wireChrome() {
+    $$(".seg__btn").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
     $("#menuBtn").addEventListener("click", openMobileNav);
     $("#menuClose").addEventListener("click", closeMobileNav);
     $("#cartBtn").addEventListener("click", openCart);
